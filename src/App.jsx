@@ -17,6 +17,9 @@ import { CreatePost } from './pages/Dashboard/CreatePost'
 import { EditPost } from './pages/Dashboard/EditPost'
 import { DashboardCategories } from './pages/Dashboard/DashboardCategories'
 import { DashboardTags } from './pages/Dashboard/DashboardTags'
+import { DashboardAnalytics } from './pages/Dashboard/DashboardAnalytics'
+import { DashboardScheduled } from './pages/Dashboard/DashboardScheduled'
+import { DashboardTemplates } from './pages/Dashboard/DashboardTemplates'
 
 function App() {
   const dispatch = useDispatch()
@@ -51,6 +54,9 @@ function App() {
           <Route path="posts/:id/edit" element={<EditPost />} />
           <Route path="categories" element={<DashboardCategories />} />
           <Route path="tags" element={<DashboardTags />} />
+          <Route path="analytics" element={<DashboardAnalytics />} />
+          <Route path="scheduled" element={<DashboardScheduled />} />
+          <Route path="templates" element={<DashboardTemplates />} />
           <Route path="profile" element={<div className="card"><p>Profile settings coming soon...</p></div>} />
         </Route>
 

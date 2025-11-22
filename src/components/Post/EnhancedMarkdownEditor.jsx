@@ -1,12 +1,15 @@
 import { useState, useRef, useEffect } from 'react'
 import { MarkdownContent } from './MarkdownContent'
+import { formatReadingTime, getWordCount } from '../../utils/readingTime'
 
 export const EnhancedMarkdownEditor = ({ value, onChange, error }) => {
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const [showPreview, setShowPreview] = useState(false)
+  const [showPreview, setShowPreview] = useState(true)
   const textareaRef = useRef(null)
   
   const charCount = value?.length || 0
+  const wordCount = getWordCount(value)
+  const readingTime = formatReadingTime(value)
 
   // Auto-resize textarea
   useEffect(() => {
@@ -181,10 +184,15 @@ export const EnhancedMarkdownEditor = ({ value, onChange, error }) => {
             </button>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-xs text-gray-500">
-              {charCount.toLocaleString()} characters
-            </span>
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 text-xs text-gray-500">
+              <span>{wordCount.toLocaleString()} words</span>
+              <span>•</span>
+              <span>{charCount.toLocaleString()} chars</span>
+              <span>•</span>
+              <span className="text-blue-600 font-medium">{readingTime}</span>
+            </div>
+            <span className="text-gray-300">|</span>
             <button
               type="button"
               onClick={() => setShowPreview(!showPreview)}

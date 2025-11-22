@@ -1,278 +1,140 @@
-# MyDoc - Documentation & Blog Platform
+# MyDoc - Documentation Platform
 
-A modern documentation and blog platform built with React, Vite, Tailwind CSS, and Supabase.
+A modern documentation and blog platform built with React, Redux Toolkit, and Supabase.
 
-## 🚀 Features
-
-### Frontend (Public)
-- ✅ Homepage with latest posts
-- ✅ Post detail page with markdown rendering
-- ✅ Search functionality
-- ✅ Responsive design (mobile-first)
-- ✅ Category and tag filtering
-
-### Dashboard (Private)
-- ✅ User authentication (login/register)
-- ✅ Dashboard overview with statistics
-- ✅ CRUD operations for posts
-- ✅ Category management
-- ✅ Tag management
-- ✅ Profile settings
-- ✅ Markdown editor
-
-## 🛠️ Tech Stack
-
-- **Frontend Framework:** React 18 + Vite
-- **Styling:** Tailwind CSS
-- **Routing:** React Router v6
-- **State Management:** TanStack Query (React Query)
-- **Database & Auth:** Supabase
-- **Markdown:** React Markdown
-- **Form Handling:** React Hook Form
-
-## 📋 Prerequisites
-
-- Node.js >= 18.0.0
-- npm or pnpm or yarn
-- Supabase account and project
-
-## ⚙️ Installation
-
-### 1. Clone and Install Dependencies
+## 🚀 Quick Start
 
 ```bash
-cd client
+# Install dependencies
 npm install
-```
 
-### 2. Setup Environment Variables
+# Create .env file (copy from .env.example)
+cp .env.example .env
 
-1. Copy `.env.example` to `.env`:
-   ```bash
-   cp .env.example .env
-   ```
-
-2. Get your Supabase credentials:
-   - Go to [Supabase Dashboard](https://app.supabase.com)
-   - Select your project
-   - Go to **Settings** → **API**
-   - Copy **Project URL** and **anon/public key**
-
-3. Update `.env` file:
-   ```env
-   VITE_SUPABASE_URL=https://xxxxx.supabase.co
-   VITE_SUPABASE_ANON_KEY=eyJhbGc...
-   ```
-
-### 3. Setup Database
-
-Make sure you've run the SQL scripts in your Supabase project:
-
-1. Run `../supabase-schema.sql` (required)
-2. Run `../supabase-rls-policies.sql` (required)
-3. Run `../supabase-sample-data.sql` (optional - for testing)
-
-See `../DATABASE-SETUP.md` for detailed instructions.
-
-### 4. Start Development Server
-
-```bash
+# Start development server
 npm run dev
 ```
 
-The app will open at `http://localhost:5173`
+## 📚 Documentation
+
+All detailed documentation is located in the `.doc` folder:
+
+### Setup & Integration
+- [Database Setup](.doc/DATABASE-SETUP.md) - Database schema and Supabase setup
+- [Integration Guide](.doc/INTEGRATION-GUIDE.md) - Backend integration guide
+- [Redux Migration](.doc/REDUX-MIGRATION-GUIDE.md) - Redux Toolkit setup
+
+### Features Documentation
+- [**NEW FEATURES**](.doc/NEW_FEATURES.md) - ✨ Latest features (Markdown preview, auto-save, search, etc.)
+- [Features List](.doc/features.md) - Complete feature list
+- [Enhanced Editor](.doc/ENHANCED-EDITOR-GUIDE.md) - Markdown editor features
+- [Reader Features](.doc/READER-FEATURES-GUIDE.md) - Reading experience features
+- [Copy Code Feature](.doc/COPY-CODE-FEATURE.md) - Code block copy functionality
+- [Filter Feature](.doc/FILTER-FEATURE-GUIDE.md) - Post filtering system
+- [Default Images](.doc/DEFAULT-IMAGES-GUIDE.md) - Image handling
+- [Table of Contents Fix](.doc/TOC-FIX-GUIDE.md) - TOC implementation
+- [Homepage Redesign](.doc/HOMEPAGE-REDESIGN-GUIDE.md) - Homepage design
+
+### Other
+- [Changelog](.doc/CHANGELOG.md) - Version history
+- [Redux Status](.doc/REDUX-INTEGRATION-STATUS.md) - Redux implementation status
+- [Markdown Test](.doc/MARKDOWN-TEST-EXAMPLE.md) - Markdown examples
+
+## 🎯 Latest Features (v1.1.0)
+
+### For Writers
+1. **✅ Markdown Preview Split View** - Side-by-side editor with live preview
+2. **✅ Draft Auto-Save** - Auto-save every 5 seconds with visual indicator
+3. **✅ Search & Filter Posts** - Full-text search with category/status filters
+4. **✅ Featured Image Upload** - Image URL with live preview
+5. **✅ Reading Time Estimation** - Automatic calculation (200 wpm)
+6. **✅ Bulk Actions** - Select multiple posts for batch operations
+
+See [NEW_FEATURES.md](.doc/NEW_FEATURES.md) for detailed documentation.
+
+## 🛠 Tech Stack
+
+- **Frontend**: React 19, Redux Toolkit, React Router
+- **Styling**: Tailwind CSS 4
+- **Backend**: Supabase (PostgreSQL + Auth)
+- **Markdown**: react-markdown, react-syntax-highlighter
+- **Forms**: react-hook-form
+- **Build**: Vite
 
 ## 📁 Project Structure
 
 ```
 client/
+├── .doc/              # All documentation files
 ├── src/
-│   ├── components/           # Reusable components
-│   │   ├── Layout/          # Layout components (Navbar, Footer)
-│   │   ├── Post/            # Post-related components
-│   │   └── ProtectedRoute.jsx
-│   ├── pages/               # Page components
-│   │   ├── Auth/            # Login, Register
-│   │   ├── Home/            # Homepage
-│   │   ├── Post/            # Post detail
-│   │   ├── Search/          # Search page
-│   │   └── Dashboard/       # Dashboard pages
-│   ├── services/            # API services
-│   │   ├── authService.js
-│   │   ├── postService.js
-│   │   ├── categoryService.js
-│   │   └── tagService.js
-│   ├── hooks/               # Custom React hooks
-│   │   └── useAuth.js
-│   ├── lib/                 # Library configurations
-│   │   ├── supabase.js
-│   │   └── queryClient.js
-│   ├── utils/               # Utility functions
-│   │   └── slugify.js
-│   ├── App.jsx              # Main App component
-│   ├── main.jsx             # Entry point
-│   └── index.css            # Global styles
-├── public/                  # Static files
-├── .env                     # Environment variables
-├── package.json
-├── tailwind.config.js
-└── vite.config.js
+│   ├── components/    # React components
+│   ├── pages/         # Page components
+│   ├── store/         # Redux store & slices
+│   ├── utils/         # Utility functions
+│   └── hooks/         # Custom hooks
+├── public/            # Static assets
+└── dist/              # Build output
 ```
 
-## 🎨 Available Scripts
+## 🔑 Environment Variables
 
-```bash
-# Start development server
-npm run dev
+Create `.env` file with:
 
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
-
-# Lint code
-npm run lint
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_anon_key
 ```
 
-## 🔐 Authentication
+## 📝 Available Scripts
 
-### Register New User
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
 
-1. Navigate to `/register`
-2. Fill in the form (email, password, username, full name)
-3. Click "Create Account"
-4. Check email for verification link (if enabled in Supabase)
+## 🎨 Key Features
 
-### Login
+- **Rich Markdown Editor** with live preview
+- **Syntax Highlighting** for code blocks
+- **Auto-save** for drafts
+- **Search & Filter** posts
+- **Bulk Operations** for post management
+- **Reading Progress** indicator
+- **Table of Contents** auto-generation
+- **Share Buttons** (Twitter, Facebook, LinkedIn, Email)
+- **Responsive Design** for all devices
 
-1. Navigate to `/login`
-2. Enter email and password
-3. Click "Sign In"
-4. Redirected to `/dashboard`
+## 📖 Usage
 
-## 📝 Using the Dashboard
-
-### Create a Post
-
+### For Writers
 1. Login to dashboard
-2. Click "New Post" button
-3. Fill in post details (title, content, category, tags)
-4. Choose status (draft or published)
-5. Click "Save"
+2. Create/edit posts with markdown editor
+3. Use live preview to see formatting
+4. Add featured image URL
+5. Select category and tags
+6. Auto-save keeps your drafts safe
+7. Publish when ready
 
-### Manage Categories
+### For Readers
+1. Browse posts on homepage
+2. Filter by category/tags
+3. Read with progress indicator
+4. Use table of contents for navigation
+5. Share posts on social media
 
-1. Go to Dashboard → Categories
-2. Add, edit, or delete categories
-3. Each category has a name, slug, description, and color
+## 🐛 Known Issues
 
-### Manage Tags
-
-1. Go to Dashboard → Tags
-2. Add, edit, or delete tags
-3. Tags can be assigned to multiple posts
-
-## 🌐 Public Pages
-
-- **Home (`/`)** - List of all published posts
-- **Post Detail (`/post/:slug`)** - Full post content with markdown
-- **Search (`/search`)** - Search posts by title or content
-
-## 🔒 Protected Pages (Require Login)
-
-- **Dashboard (`/dashboard`)** - Overview and statistics
-- **Posts (`/dashboard/posts`)** - Manage posts
-- **Categories (`/dashboard/categories`)** - Manage categories
-- **Tags (`/dashboard/tags`)** - Manage tags
-- **Profile (`/dashboard/profile`)** - Update profile settings
-
-## 🎯 Key Features
-
-### Markdown Support
-
-Posts are written in Markdown and rendered with `react-markdown`. Supports:
-- Headers, paragraphs, lists
-- Code blocks with syntax highlighting
-- Images, links, blockquotes
-- Bold, italic, strikethrough
-
-### Search Functionality
-
-- Full-text search across post titles and content
-- Real-time search results
-- Optimized database queries
-
-### Responsive Design
-
-- Mobile-first approach
-- Tailwind CSS utility classes
-- Responsive navbar with mobile menu
-- Card-based layouts
-
-### Performance Optimizations
-
-- TanStack Query for caching and refetching
-- Lazy loading for images
-- Optimized Supabase queries
-- Debounced search input
-
-## 🚀 Deployment
-
-### Frontend (Vercel)
-
-1. Push code to GitHub
-2. Connect repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy!
-
-### Database (Supabase)
-
-Database is already hosted on Supabase (managed service).
-
-## 🐛 Troubleshooting
-
-### "Missing Supabase environment variables"
-
-- Make sure `.env` file exists and contains correct values
-- Restart dev server after changing `.env`
-
-### "Failed to fetch posts"
-
-- Check Supabase connection (URL and key)
-- Verify RLS policies are set up correctly
-- Check browser console for errors
-
-### Authentication not working
-
-- Verify email confirmation is disabled in Supabase (for testing)
-- Check if profile is created automatically (trigger should handle this)
-
-### Posts not showing
-
-- Make sure posts have `status = 'published'`
-- Check if `published_at` is set
-- Verify user is authenticated for drafts
-
-## 📚 Additional Documentation
-
-- **Database Setup:** `../DATABASE-SETUP.md`
-- **API Endpoints:** `../API-ENDPOINTS.md`
-- **ER Diagram:** `../ER-DIAGRAM.md`
-- **Quick Start:** `../QUICK-START.md`
-
-## 🔑 Default Test User (if using sample data)
-
-Create a user via Supabase Authentication dashboard first, then use those credentials to login.
+None at the moment. Check [CHANGELOG.md](.doc/CHANGELOG.md) for updates.
 
 ## 📄 License
 
-Free to use for personal and commercial projects.
+Private project.
 
-## 🤝 Contributing
+## 👥 Author
 
-This is a personal project template. Feel free to fork and customize!
+MyDoc Team
 
 ---
 
-**Built with ❤️ using React, Vite, Tailwind CSS, and Supabase**
+**Last Updated:** 2025-11-22  
+**Version:** 1.1.0

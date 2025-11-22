@@ -23,14 +23,18 @@ export const EditPost = () => {
     }
   }, [post])
 
-  const handleSubmit = async (data) => {
-    setError('')
+  const handleSubmit = async (data, isAutoSave = false) => {
+    if (!isAutoSave) setError('')
     try {
       await updatePost({ postId: id, updates: data }).unwrap()
-      alert('Post updated successfully!')
-      navigate('/dashboard/posts')
+      if (!isAutoSave) {
+        alert('Post updated successfully!')
+        navigate('/dashboard/posts')
+      }
     } catch (error) {
-      setError(error)
+      if (!isAutoSave) {
+        setError(error)
+      }
     }
   }
 
@@ -73,6 +77,7 @@ export const EditPost = () => {
           post={formattedPost}
           onSubmit={handleSubmit}
           isSubmitting={isUpdating}
+          enableAutoSave={true}
         />
       </div>
     </div>

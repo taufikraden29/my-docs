@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectCurrentUser } from '../../store/slices/authSlice'
 import { useGetAuthorPostsQuery } from '../../store/api/postsApi'
+import { formatReadingTime } from '../../utils/readingTime'
 
 export const DashboardHome = () => {
   const user = useSelector(selectCurrentUser)
@@ -101,6 +102,8 @@ export const DashboardHome = () => {
                     {post.status}
                   </span>
                   <span>{post.view_count || 0} views</span>
+                  <span>•</span>
+                  <span>{formatReadingTime(post.content)}</span>
                 </div>
               </div>
               <Link to={`/dashboard/posts/${post.id}/edit`} className="text-blue-600 hover:underline">
