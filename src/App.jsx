@@ -20,6 +20,7 @@ import { DashboardTags } from './pages/Dashboard/DashboardTags'
 import { DashboardAnalytics } from './pages/Dashboard/DashboardAnalytics'
 import { DashboardScheduled } from './pages/Dashboard/DashboardScheduled'
 import { DashboardTemplates } from './pages/Dashboard/DashboardTemplates'
+import { DashboardProfile } from './pages/Dashboard/DashboardProfile'
 
 function App() {
   const dispatch = useDispatch()
@@ -57,7 +58,7 @@ function App() {
           <Route path="analytics" element={<DashboardAnalytics />} />
           <Route path="scheduled" element={<DashboardScheduled />} />
           <Route path="templates" element={<DashboardTemplates />} />
-          <Route path="profile" element={<div className="card"><p>Profile settings coming soon...</p></div>} />
+          <Route path="profile" element={<DashboardProfile />} />
         </Route>
 
         <Route path="*" element={<Navigate to="/" replace />} />

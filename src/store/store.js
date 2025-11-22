@@ -6,6 +6,7 @@ import { authApi } from './api/authApi'
 import { postsApi } from './api/postsApi'
 import { categoriesApi } from './api/categoriesApi'
 import { tagsApi } from './api/tagsApi'
+import { profileApi } from './api/profileApi'
 
 // Regular slices
 import authReducer from './slices/authSlice'
@@ -18,6 +19,7 @@ export const store = configureStore({
     [postsApi.reducerPath]: postsApi.reducer,
     [categoriesApi.reducerPath]: categoriesApi.reducer,
     [tagsApi.reducerPath]: tagsApi.reducer,
+    [profileApi.reducerPath]: profileApi.reducer,
     
     // Regular reducers
     auth: authReducer,
@@ -28,7 +30,8 @@ export const store = configureStore({
       authApi.middleware,
       postsApi.middleware,
       categoriesApi.middleware,
-      tagsApi.middleware
+      tagsApi.middleware,
+      profileApi.middleware
     ),
 })
 
