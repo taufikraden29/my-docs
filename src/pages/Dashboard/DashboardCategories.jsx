@@ -7,6 +7,7 @@ import {
   useDeleteCategoryMutation,
 } from '../../store/api/categoriesApi'
 import { slugify } from '../../utils/slugify'
+import { showToast } from '../../utils/toast'
 
 export const DashboardCategories = () => {
   const [editingId, setEditingId] = useState(null)
@@ -27,15 +28,15 @@ export const DashboardCategories = () => {
     try {
       if (editingId) {
         await updateCategory({ categoryId: editingId, updates: categoryData }).unwrap()
-        alert('Category updated successfully!')
+        showToast.success('Category updated successfully!')
       } else {
         await createCategory(categoryData).unwrap()
-        alert('Category created successfully!')
+        showToast.success('Category created successfully!')
       }
       setEditingId(null)
       reset()
     } catch (error) {
-      alert('Failed to save category: ' + error)
+      showToast.error('Failed to save category: ' + error)
     }
   }
 
@@ -55,9 +56,9 @@ export const DashboardCategories = () => {
     if (window.confirm(`Are you sure you want to delete "${categoryName}"?`)) {
       try {
         await deleteCategory(categoryId).unwrap()
-        alert('Category deleted successfully!')
+        showToast.success('Category deleted successfully!')
       } catch (error) {
-        alert('Failed to delete category: ' + error)
+        showToast.error('Failed to delete category: ' + error)
       }
     }
   }

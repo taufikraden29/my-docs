@@ -7,6 +7,7 @@ import {
   useDeleteTagMutation,
 } from '../../store/api/tagsApi'
 import { slugify } from '../../utils/slugify'
+import { showToast } from '../../utils/toast'
 
 export const DashboardTags = () => {
   const [editingId, setEditingId] = useState(null)
@@ -27,15 +28,15 @@ export const DashboardTags = () => {
     try {
       if (editingId) {
         await updateTag({ tagId: editingId, updates: tagData }).unwrap()
-        alert('Tag updated successfully!')
+        showToast.success('Tag updated successfully!')
       } else {
         await createTag(tagData).unwrap()
-        alert('Tag created successfully!')
+        showToast.success('Tag created successfully!')
       }
       setEditingId(null)
       reset()
     } catch (error) {
-      alert('Failed to save tag: ' + error)
+      showToast.error('Failed to save tag: ' + error)
     }
   }
 
@@ -53,9 +54,9 @@ export const DashboardTags = () => {
     if (window.confirm(`Are you sure you want to delete "${tagName}"?`)) {
       try {
         await deleteTag(tagId).unwrap()
-        alert('Tag deleted successfully!')
+        showToast.success('Tag deleted successfully!')
       } catch (error) {
-        alert('Failed to delete tag: ' + error)
+        showToast.error('Failed to delete tag: ' + error)
       }
     }
   }

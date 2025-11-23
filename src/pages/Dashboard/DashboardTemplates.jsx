@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { showToast } from '../../utils/toast'
 
 export const DashboardTemplates = () => {
   const [templates, setTemplates] = useState([])
@@ -27,7 +28,7 @@ export const DashboardTemplates = () => {
 
   const handleCreateTemplate = () => {
     if (!templateName.trim()) {
-      alert('Please enter a template name')
+      showToast.warning('Please enter a template name')
       return
     }
 
@@ -51,7 +52,7 @@ export const DashboardTemplates = () => {
     saveTemplates(updatedTemplates)
     setShowCreateModal(false)
     resetForm()
-    alert('Template created successfully!')
+    showToast.success('Template created successfully!')
   }
 
   const resetForm = () => {
@@ -91,9 +92,9 @@ export const DashboardTemplates = () => {
           const importedTemplates = JSON.parse(event.target.result)
           const updatedTemplates = [...templates, ...importedTemplates]
           saveTemplates(updatedTemplates)
-          alert('Templates imported successfully!')
+          showToast.success('Templates imported successfully!')
         } catch (error) {
-          alert('Failed to import templates: Invalid JSON file')
+          showToast.error('Failed to import templates: Invalid JSON file')
         }
       }
       reader.readAsText(file)

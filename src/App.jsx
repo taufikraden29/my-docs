@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
+import { Toaster } from 'react-hot-toast'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import { useGetCurrentUserQuery } from './store/api/authApi'
 import { setUser, setLoading } from './store/slices/authSlice'
@@ -34,6 +35,56 @@ function App() {
 
   return (
     <BrowserRouter>
+      {/* Toast Notifications */}
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        gutter={8}
+        toastOptions={{
+          // Default options
+          duration: 4000,
+          style: {
+            background: '#fff',
+            color: '#333',
+            padding: '16px',
+            borderRadius: '10px',
+            boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
+            fontFamily: 'Inter, sans-serif',
+            fontSize: '14px',
+            fontWeight: '500',
+          },
+          // Success
+          success: {
+            duration: 3000,
+            iconTheme: {
+              primary: '#10b981',
+              secondary: '#fff',
+            },
+            style: {
+              border: '1px solid #d1fae5',
+            },
+          },
+          // Error
+          error: {
+            duration: 5000,
+            iconTheme: {
+              primary: '#ef4444',
+              secondary: '#fff',
+            },
+            style: {
+              border: '1px solid #fee2e2',
+            },
+          },
+          // Loading
+          loading: {
+            iconTheme: {
+              primary: '#3b82f6',
+              secondary: '#fff',
+            },
+          },
+        }}
+      />
+
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/post/:slug" element={<PostDetailPage />} />

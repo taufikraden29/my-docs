@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { selectCurrentUser } from '../../store/slices/authSlice'
 import { useUpdateProfileMutation, useUpdateSocialLinksMutation } from '../../store/api/profileApi'
+import { showToast } from '../../utils/toast'
 
 export const DashboardProfile = () => {
   const user = useSelector(selectCurrentUser)
@@ -53,27 +54,33 @@ export const DashboardProfile = () => {
 
   const handleProfileSubmit = async (e) => {
     e.preventDefault()
+    const toastId = showToast.loading('Updating profile...')
     try {
       await updateProfile({
         userId: user.id,
         updates: formData,
       }).unwrap()
-      alert('Profile updated successfully!')
+      showToast.dismiss(toastId)
+      showToast.success('Profile updated successfully!')
     } catch (error) {
-      alert('Failed to update profile: ' + error)
+      showToast.dismiss(toastId)
+      showToast.error('Failed to update profile: ' + error)
     }
   }
 
   const handleSocialSubmit = async (e) => {
     e.preventDefault()
+    const toastId = showToast.loading('Updating social links...')
     try {
       await updateSocialLinks({
         userId: user.id,
         socialLinks,
       }).unwrap()
-      alert('Social links updated successfully!')
+      showToast.dismiss(toastId)
+      showToast.success('Social links updated successfully!')
     } catch (error) {
-      alert('Failed to update social links: ' + error)
+      showToast.dismiss(toastId)
+      showToast.error('Failed to update social links: ' + error)
     }
   }
 

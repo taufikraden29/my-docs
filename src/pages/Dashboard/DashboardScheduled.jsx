@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux'
 import { selectCurrentUser } from '../../store/slices/authSlice'
 import { useGetAuthorPostsQuery, useUpdatePostMutation } from '../../store/api/postsApi'
 import { formatDate } from '../../utils/slugify'
+import { showToast } from '../../utils/toast'
 
 export const DashboardScheduled = () => {
   const user = useSelector(selectCurrentUser)
@@ -19,6 +20,7 @@ export const DashboardScheduled = () => {
 
   const handleCancelSchedule = async (post) => {
     if (window.confirm(`Cancel scheduled publish for "${post.title}"?`)) {
+      const toastId = showToast.loading('Cancelling schedule...')
       try {
         await updatePost({
           postId: post.id,
@@ -28,15 +30,18 @@ export const DashboardScheduled = () => {
             scheduled_at: null,
           },
         }).unwrap()
-        alert('Schedule cancelled successfully!')
+        showToast.dismiss(toastId)
+        showToast.success('Schedule cancelled successfully!')
       } catch (error) {
-        alert('Failed to cancel schedule: ' + error)
+        showToast.dismiss(toastId)
+        showToast.error('Failed to cancel schedule: ' + error)
       }
     }
   }
 
   const handlePublishNow = async (post) => {
     if (window.confirm(`Publish "${post.title}" immediately?`)) {
+      const toastId = showToast.loading('Publishing post...')
       try {
         await updatePost({
           postId: post.id,
@@ -47,9 +52,11 @@ export const DashboardScheduled = () => {
             published_at: new Date().toISOString(),
           },
         }).unwrap()
-        alert('Post published successfully!')
+        showToast.dismiss(toastId)
+        showToast.success('Post published successfully!')
       } catch (error) {
-        alert('Failed to publish post: ' + error)
+        showToast.dismiss(toastId)
+        showToast.error('Failed to publish post: ' + error)
       }
     }
   }

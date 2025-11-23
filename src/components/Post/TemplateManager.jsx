@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { showToast } from '../../utils/toast'
 
 export const TemplateManager = ({ onApplyTemplate }) => {
   const [templates, setTemplates] = useState([])
@@ -26,7 +27,7 @@ export const TemplateManager = ({ onApplyTemplate }) => {
 
   const confirmSaveTemplate = () => {
     if (!templateName.trim()) {
-      alert('Please enter a template name')
+      showToast.warning('Please enter a template name')
       return
     }
 
@@ -43,7 +44,7 @@ export const TemplateManager = ({ onApplyTemplate }) => {
     setShowSaveModal(false)
     setTemplateName('')
     setTemplateDescription('')
-    alert('Template saved successfully!')
+    showToast.success('Template saved successfully!')
   }
 
   const handleApply = (template) => {

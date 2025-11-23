@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSignUpMutation } from '../../store/api/authApi'
+import { showToast } from '../../utils/toast'
 
 export const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -42,7 +43,7 @@ export const RegisterPage = () => {
         username: formData.username,
         fullName: formData.fullName
       }).unwrap()
-      alert('Registration successful! Please check your email to verify your account.')
+      showToast.success('Registration successful! Please check your email to verify your account.')
       navigate('/login')
     } catch (err) {
       setError(err || 'Failed to register')

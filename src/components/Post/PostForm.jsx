@@ -9,6 +9,7 @@ import { useAutoSave, formatLastSaved } from '../../hooks/useAutoSave'
 import { PostScheduler } from './PostScheduler'
 import { SEOHelper } from './SEOHelper'
 import { TemplateManager } from './TemplateManager'
+import { showToast } from '../../utils/toast'
 
 export const PostForm = ({ post, onSubmit, isSubmitting, enableAutoSave = false }) => {
   const { register, handleSubmit, watch, setValue, reset, formState: { errors } } = useForm({
@@ -371,7 +372,7 @@ export const PostForm = ({ post, onSubmit, isSubmitting, enableAutoSave = false 
                   createdAt: new Date().toISOString(),
                 })
                 localStorage.setItem('postTemplates', JSON.stringify(templates))
-                alert('Template saved!')
+                showToast.success('Template saved!')
               }
             }}
             className="btn-secondary"

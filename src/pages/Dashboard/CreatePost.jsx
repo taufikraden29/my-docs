@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useCreatePostMutation } from '../../store/api/postsApi'
 import { PostForm } from '../../components/Post/PostForm'
+import { showToast } from '../../utils/toast'
 
 export const CreatePost = () => {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ export const CreatePost = () => {
     setError('')
     try {
       await createPost(data).unwrap()
-      alert('Post created successfully!')
+      showToast.success('Post created successfully!')
       navigate('/dashboard/posts')
     } catch (error) {
       setError(error)

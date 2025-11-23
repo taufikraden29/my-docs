@@ -7,6 +7,7 @@ import { useGetAllCategoriesQuery } from '../../store/api/categoriesApi'
 import { useGetAllTagsQuery } from '../../store/api/tagsApi'
 import { formatDate } from '../../utils/slugify'
 import { formatReadingTime } from '../../utils/readingTime'
+import { showToast } from '../../utils/toast'
 
 export const DashboardPosts = () => {
   const user = useSelector(selectCurrentUser)
@@ -78,12 +79,15 @@ export const DashboardPosts = () => {
 
   const handleDelete = async (postId, postTitle) => {
     if (window.confirm(`Are you sure you want to delete "${postTitle}"?`)) {
+      const toastId = showToast.loading('Deleting post...')
       try {
         await deletePost(postId).unwrap()
-        alert('Post deleted successfully!')
+        showToast.dismiss(toastId)
+        showToast.success('Post deleted successfully!')
         setSelectedPosts(prev => prev.filter(id => id !== postId))
       } catch (error) {
-        alert('Failed to delete post: ' + error)
+        showToast.dismiss(toastId)
+        showToast.error('Failed to delete post: ' + error)
       }
     }
   }
@@ -109,12 +113,15 @@ export const DashboardPosts = () => {
     if (selectedPosts.length === 0) return
     
     if (window.confirm(`Are you sure you want to delete ${selectedPosts.length} post(s)?`)) {
+      const toastId = showToast.loading(`Deleting ${selectedPosts.length} post(s)...`)
       try {
         await Promise.all(selectedPosts.map(id => deletePost(id).unwrap()))
-        alert(`${selectedPosts.length} post(s) deleted successfully!`)
+        showToast.dismiss(toastId)
+        showToast.success(`${selectedPosts.length} post(s) deleted successfully!`)
         setSelectedPosts([])
       } catch (error) {
-        alert('Failed to delete posts: ' + error)
+        showToast.dismiss(toastId)
+        showToast.error('Failed to delete posts: ' + error)
       }
     }
   }
@@ -122,6 +129,7 @@ export const DashboardPosts = () => {
   const handleBulkStatusChange = async (newStatus) => {
     if (selectedPosts.length === 0) return
 
+    const toastId = showToast.loading(`Updating ${selectedPosts.length} post(s)...`)
     try {
       await Promise.all(
         selectedPosts.map(id => {
@@ -132,10 +140,12 @@ export const DashboardPosts = () => {
           }).unwrap()
         })
       )
-      alert(`${selectedPosts.length} post(s) status changed to ${newStatus}!`)
+      showToast.dismiss(toastId)
+      showToast.success(`${selectedPosts.length} post(s) status changed to ${newStatus}!`)
       setSelectedPosts([])
     } catch (error) {
-      alert('Failed to update posts: ' + error)
+      showToast.dismiss(toastId)
+      showToast.error('Failed to update posts: ' + error)
     }
   }
 

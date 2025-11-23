@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useGetPostByIdQuery, useUpdatePostMutation } from '../../store/api/postsApi'
 import { PostForm } from '../../components/Post/PostForm'
+import { showToast } from '../../utils/toast'
 
 export const EditPost = () => {
   const { id } = useParams()
@@ -28,7 +29,7 @@ export const EditPost = () => {
     try {
       await updatePost({ postId: id, updates: data }).unwrap()
       if (!isAutoSave) {
-        alert('Post updated successfully!')
+        showToast.success('Post updated successfully!')
         navigate('/dashboard/posts')
       }
     } catch (error) {
